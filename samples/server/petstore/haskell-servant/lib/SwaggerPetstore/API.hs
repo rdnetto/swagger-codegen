@@ -49,26 +49,141 @@ instance ToForm FormUploadFile where
 
 
 -- | Servant type-level API, generated from the Swagger spec for SwaggerPetstore.
+type AddPetRoute
+  =  "pet"
+  :> ReqBody '[JSON] Pet
+  :> Verb 'POST 200 '[JSON] ()
+
+type DeletePetRoute
+  =  "pet"
+  :> Capture "petId" Int
+  :> Header "api_key" Text
+  :> Verb 'DELETE 200 '[JSON] ()
+
+type FindPetsByStatusRoute
+  =  "pet"
+  :> "findByStatus"
+  :> QueryParam "status" (QueryList 'MultiParamArray (Text))
+  :> Verb 'GET 200 '[JSON] [Pet]
+
+type FindPetsByTagsRoute
+  =  "pet"
+  :> "findByTags"
+  :> QueryParam "tags" (QueryList 'MultiParamArray (Text))
+  :> Verb 'GET 200 '[JSON] [Pet]
+
+type GetPetByIdRoute
+  =  "pet"
+  :> Capture "petId" Int
+  :> Verb 'GET 200 '[JSON] Pet
+
+type UpdatePetRoute
+  =  "pet"
+  :> ReqBody '[JSON] Pet
+  :> Verb 'PUT 200 '[JSON] ()
+
+type UpdatePetWithFormRoute
+  =  "pet"
+  :> Capture "petId" Int
+  :> ReqBody '[FormUrlEncoded] FormUpdatePetWithForm
+  :> Verb 'POST 200 '[JSON] ()
+
+type UploadFileRoute
+  =  "pet"
+  :> Capture "petId" Int
+  :> "uploadImage"
+  :> ReqBody '[FormUrlEncoded] FormUploadFile
+  :> Verb 'POST 200 '[JSON] ApiResponse
+
+type DeleteOrderRoute
+  =  "store"
+  :> "order"
+  :> Capture "orderId" Text
+  :> Verb 'DELETE 200 '[JSON] ()
+
+type GetInventoryRoute
+  =  "store"
+  :> "inventory"
+  :> Verb 'GET 200 '[JSON] (Map.Map String Int)
+
+type GetOrderByIdRoute
+  =  "store"
+  :> "order"
+  :> Capture "orderId" Int
+  :> Verb 'GET 200 '[JSON] Order
+
+type PlaceOrderRoute
+  =  "store"
+  :> "order"
+  :> ReqBody '[JSON] Order
+  :> Verb 'POST 200 '[JSON] Order
+
+type CreateUserRoute
+  =  "user"
+  :> ReqBody '[JSON] User
+  :> Verb 'POST 200 '[JSON] ()
+
+type CreateUsersWithArrayInputRoute
+  =  "user"
+  :> "createWithArray"
+  :> ReqBody '[JSON] [User]
+  :> Verb 'POST 200 '[JSON] ()
+
+type CreateUsersWithListInputRoute
+  =  "user"
+  :> "createWithList"
+  :> ReqBody '[JSON] [User]
+  :> Verb 'POST 200 '[JSON] ()
+
+type DeleteUserRoute
+  =  "user"
+  :> Capture "username" Text
+  :> Verb 'DELETE 200 '[JSON] ()
+
+type GetUserByNameRoute
+  =  "user"
+  :> Capture "username" Text
+  :> Verb 'GET 200 '[JSON] User
+
+type LoginUserRoute
+  =  "user"
+  :> "login"
+  :> QueryParam "username" Text
+  :> QueryParam "password" Text
+  :> Verb 'GET 200 '[JSON] Text
+
+type LogoutUserRoute
+  =  "user"
+  :> "logout"
+  :> Verb 'GET 200 '[JSON] ()
+
+type UpdateUserRoute
+  =  "user"
+  :> Capture "username" Text
+  :> ReqBody '[JSON] User
+  :> Verb 'PUT 200 '[JSON] ()
+
+
 type SwaggerPetstoreAPI
-    =    "pet" :> ReqBody '[JSON] Pet :> Verb 'POST 200 '[JSON] () -- 'addPet' route
-    :<|> "pet" :> Capture "petId" Int :> Header "api_key" Text :> Verb 'DELETE 200 '[JSON] () -- 'deletePet' route
-    :<|> "pet" :> "findByStatus" :> QueryParam "status" (QueryList 'MultiParamArray (Text)) :> Verb 'GET 200 '[JSON] [Pet] -- 'findPetsByStatus' route
-    :<|> "pet" :> "findByTags" :> QueryParam "tags" (QueryList 'MultiParamArray (Text)) :> Verb 'GET 200 '[JSON] [Pet] -- 'findPetsByTags' route
-    :<|> "pet" :> Capture "petId" Int :> Verb 'GET 200 '[JSON] Pet -- 'getPetById' route
-    :<|> "pet" :> ReqBody '[JSON] Pet :> Verb 'PUT 200 '[JSON] () -- 'updatePet' route
-    :<|> "pet" :> Capture "petId" Int :> ReqBody '[FormUrlEncoded] FormUpdatePetWithForm :> Verb 'POST 200 '[JSON] () -- 'updatePetWithForm' route
-    :<|> "pet" :> Capture "petId" Int :> "uploadImage" :> ReqBody '[FormUrlEncoded] FormUploadFile :> Verb 'POST 200 '[JSON] ApiResponse -- 'uploadFile' route
-    :<|> "store" :> "order" :> Capture "orderId" Text :> Verb 'DELETE 200 '[JSON] () -- 'deleteOrder' route
-    :<|> "store" :> "inventory" :> Verb 'GET 200 '[JSON] (Map.Map String Int) -- 'getInventory' route
-    :<|> "store" :> "order" :> Capture "orderId" Int :> Verb 'GET 200 '[JSON] Order -- 'getOrderById' route
-    :<|> "store" :> "order" :> ReqBody '[JSON] Order :> Verb 'POST 200 '[JSON] Order -- 'placeOrder' route
-    :<|> "user" :> ReqBody '[JSON] User :> Verb 'POST 200 '[JSON] () -- 'createUser' route
-    :<|> "user" :> "createWithArray" :> ReqBody '[JSON] [User] :> Verb 'POST 200 '[JSON] () -- 'createUsersWithArrayInput' route
-    :<|> "user" :> "createWithList" :> ReqBody '[JSON] [User] :> Verb 'POST 200 '[JSON] () -- 'createUsersWithListInput' route
-    :<|> "user" :> Capture "username" Text :> Verb 'DELETE 200 '[JSON] () -- 'deleteUser' route
-    :<|> "user" :> Capture "username" Text :> Verb 'GET 200 '[JSON] User -- 'getUserByName' route
-    :<|> "user" :> "login" :> QueryParam "username" Text :> QueryParam "password" Text :> Verb 'GET 200 '[JSON] Text -- 'loginUser' route
-    :<|> "user" :> "logout" :> Verb 'GET 200 '[JSON] () -- 'logoutUser' route
-    :<|> "user" :> Capture "username" Text :> ReqBody '[JSON] User :> Verb 'PUT 200 '[JSON] () -- 'updateUser' route
+    =    AddPetRoute
+    :<|> DeletePetRoute
+    :<|> FindPetsByStatusRoute
+    :<|> FindPetsByTagsRoute
+    :<|> GetPetByIdRoute
+    :<|> UpdatePetRoute
+    :<|> UpdatePetWithFormRoute
+    :<|> UploadFileRoute
+    :<|> DeleteOrderRoute
+    :<|> GetInventoryRoute
+    :<|> GetOrderByIdRoute
+    :<|> PlaceOrderRoute
+    :<|> CreateUserRoute
+    :<|> CreateUsersWithArrayInputRoute
+    :<|> CreateUsersWithListInputRoute
+    :<|> DeleteUserRoute
+    :<|> GetUserByNameRoute
+    :<|> LoginUserRoute
+    :<|> LogoutUserRoute
+    :<|> UpdateUserRoute
 
 
