@@ -8,8 +8,8 @@ module SwaggerPetstore.Common where
 
 import Data.Monoid ((<>))
 import Data.Text (Text)
-import Prelude
 import qualified Data.Text as T
+import Prelude
 import Servant.API (ToHttpApiData(..), FromHttpApiData(..))
 
 

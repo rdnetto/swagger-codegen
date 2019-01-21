@@ -22,9 +22,7 @@ import Servant.Server (Handler, serve)
 
 
 -- | Backend for SwaggerPetstore.
--- The backend can be used both for the client and the server. The client generated from the SwaggerPetstore Swagger spec
--- is a backend that executes actions by sending HTTP requests (see @createSwaggerPetstoreClient@). Alternatively, provided
--- a backend, the API can be served using @runSwaggerPetstoreServer@.
+-- This is used to supply functions for handling the individual routes.
 data SwaggerPetstoreBackend m = SwaggerPetstoreBackend
   { addPet :: Pet -> m ()    {- ^  -}
   , deletePet :: Int -> Maybe Text -> m ()    {- ^  -}

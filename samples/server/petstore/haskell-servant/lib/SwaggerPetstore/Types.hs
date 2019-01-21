@@ -11,16 +11,20 @@ module SwaggerPetstore.Types (
   User (..),
   ) where
 
-import Data.Aeson.Types (Options(..), defaultOptions)
 import Data.Aeson (Value, FromJSON(..), ToJSON(..), genericToJSON, genericParseJSON)
+import Data.Aeson.Types (Options(..), defaultOptions)
 import Data.Function ((&))
 import Data.List (stripPrefix)
+import qualified Data.Map as Map
 import Data.Maybe (fromMaybe)
-import Data.Text (Text)
+import qualified Data.Text as T
 import GHC.Generics (Generic)
 import Prelude
+
+import Data.Text (Text)
 import qualified Data.Map as Map
-import qualified Data.Text as T
+import Data.Text (Text)
+import Data.Text (Text)
 
 
 
@@ -52,7 +56,7 @@ data Order = Order
   { orderId :: Integer -- ^ 
   , orderPetId :: Integer -- ^ 
   , orderQuantity :: Int -- ^ 
-  , orderShipDate :: Integer -- ^ 
+  , orderShipDate :: ZonedTime -- ^ 
   , orderStatus :: Text -- ^ Order Status
   , orderComplete :: Bool -- ^ 
   } deriving (Show, Eq, Generic)

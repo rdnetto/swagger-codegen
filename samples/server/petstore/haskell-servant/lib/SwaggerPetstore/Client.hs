@@ -32,10 +32,12 @@ import SwaggerPetstore.API
 import SwaggerPetstore.Common
 import SwaggerPetstore.Types
 
+import Data.ByteString (ByteString)
 import Data.Coerce (coerce)
 import qualified Data.Map as Map
 import Data.Proxy (Proxy(..))
 import Data.Text (Text)
+import Prelude
 import Servant.API
 import Servant.Client (ClientM, client, hoistClient)
 

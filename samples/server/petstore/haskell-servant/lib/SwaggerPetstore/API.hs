@@ -10,6 +10,7 @@ module SwaggerPetstore.API where
 import SwaggerPetstore.Common
 import SwaggerPetstore.Types
 
+import Data.ByteString (ByteString)
 import qualified Data.Map as Map
 import Data.Text (Text)
 import qualified Data.Text as T
@@ -18,6 +19,11 @@ import Prelude
 import Servant.API
 import Servant.API.Verbs (StdMethod(..), Verb)
 import Web.Internal.FormUrlEncoded (ToForm(..), FromForm(..), parseUnique)
+
+import Data.Text (Text)
+import qualified Data.Map as Map
+import Data.Text (Text)
+import Data.Text (Text)
 
 
 data FormUpdatePetWithForm = FormUpdatePetWithForm
