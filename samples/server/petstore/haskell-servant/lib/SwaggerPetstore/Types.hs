@@ -1,6 +1,6 @@
 {-# LANGUAGE DeriveGeneric #-}
 {-# LANGUAGE GeneralizedNewtypeDeriving #-}
-{-# OPTIONS_GHC -fno-warn-unused-binds -fno-warn-unused-imports #-}
+{-# OPTIONS_GHC -fno-warn-unused-binds -fno-warn-unused-imports -fno-warn-orphans #-}
 
 module SwaggerPetstore.Types (
   ApiResponse (..),
@@ -13,18 +13,23 @@ module SwaggerPetstore.Types (
 
 import Data.Aeson (Value, FromJSON(..), ToJSON(..), genericToJSON, genericParseJSON)
 import Data.Aeson.Types (Options(..), defaultOptions)
-import Data.Function ((&))
+import Data.Function ((&), on)
 import Data.List (stripPrefix)
 import qualified Data.Map as Map
 import Data.Maybe (fromMaybe)
 import qualified Data.Text as T
+import Data.Time.LocalTime (ZonedTime, zonedTimeToUTC)
 import GHC.Generics (Generic)
 import Prelude
 
 import Data.Text (Text)
+import Data.Time.LocalTime (ZonedTime)
 import qualified Data.Map as Map
-import Data.Text (Text)
-import Data.Text (Text)
+
+
+-- Orphan instance - needed so we can derive Eq instances for our data types
+instance Eq ZonedTime where
+    (==) = (==) `on` zonedTimeToUTC
 
 
 

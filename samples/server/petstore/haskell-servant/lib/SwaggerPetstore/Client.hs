@@ -32,14 +32,16 @@ import SwaggerPetstore.API
 import SwaggerPetstore.Common
 import SwaggerPetstore.Types
 
-import Data.ByteString (ByteString)
 import Data.Coerce (coerce)
 import qualified Data.Map as Map
 import Data.Proxy (Proxy(..))
-import Data.Text (Text)
 import Prelude
 import Servant.API
 import Servant.Client (ClientM, client, hoistClient)
+
+import Data.Text (Text)
+import Data.Time.LocalTime (ZonedTime)
+import qualified Data.Map as Map
 
 
 -- | Monads in which client calls may be embedded.

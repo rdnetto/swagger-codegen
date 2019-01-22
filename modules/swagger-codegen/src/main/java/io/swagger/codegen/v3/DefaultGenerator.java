@@ -653,7 +653,7 @@ public class DefaultGenerator extends AbstractGenerator implements Generator {
     }
 
     private Map<String, Object> buildSupportFileBundle(List<Object> allOperations, List<Object> allModels) {
-
+        // This is where we build the context
         Map<String, Object> bundle = new HashMap<>();
         bundle.putAll(config.additionalProperties());
         bundle.put("apiPackage", config.apiPackage());
@@ -948,7 +948,7 @@ public class DefaultGenerator extends AbstractGenerator implements Generator {
         Set<String> allImports = new LinkedHashSet<>();
         for (String key : definitions.keySet()) {
             Schema schema = definitions.get(key);
-            CodegenModel cm = config.fromModel(key, schema, allDefinitions);
+            CodegenModel cm = config.fromModel(key, schema, allDefinitions);    // this is the point where we call out to the haskell code
             Map<String, Object> mo = new HashMap<>();
             mo.put("model", cm);
             mo.put("importPath", config.toModelImport(cm.classname));

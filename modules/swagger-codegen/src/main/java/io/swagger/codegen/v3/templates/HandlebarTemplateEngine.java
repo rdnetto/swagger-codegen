@@ -21,6 +21,7 @@ public class HandlebarTemplateEngine implements TemplateEngine {
 
     @Override
     public String getRendered(String templateFile, Map<String, Object> templateData) throws IOException {
+        // This is the place to breakpoint to see the complete context
         final com.github.jknack.handlebars.Template hTemplate = getHandlebars(templateFile);
         return hTemplate.apply(templateData);
     }

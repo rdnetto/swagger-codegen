@@ -10,9 +10,7 @@ module SwaggerPetstore.API where
 import SwaggerPetstore.Common
 import SwaggerPetstore.Types
 
-import Data.ByteString (ByteString)
 import qualified Data.Map as Map
-import Data.Text (Text)
 import qualified Data.Text as T
 import GHC.Generics (Generic)
 import Prelude
