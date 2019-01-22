@@ -692,7 +692,7 @@ public class DefaultGenerator extends AbstractGenerator implements Generator {
             m.getVendorExtensions().put(CodegenConstants.HAS_MORE_MODELS_EXT_NAME, Boolean.TRUE);
         }
 
-        config.postProcessSupportingFileData(bundle);
+        bundle = config.postProcessSupportingFileData(bundle);
 
         if (System.getProperty("debugSupportingFiles") != null) {
             LOGGER.info("############ Supporting file info ############");
