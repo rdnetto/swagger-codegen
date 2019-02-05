@@ -1,3 +1,4 @@
+{-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# LANGUAGE DeriveFunctor #-}
 {-# LANGUAGE GeneralizedNewtypeDeriving #-}
 
@@ -11,7 +12,8 @@ import Control.Monad.Morph (MFunctor(..))
 import Control.Monad.Reader (ReaderT(..))
 import Control.Monad.Reader (MonadReader(..))
 import Control.Monad.Trans.Class (MonadTrans(..))
-import Servant.Client (ClientEnv, ServantError, runClientM)
+import Prelude
+import Servant.Client (BaseUrl(..), ClientEnv, ServantError, Scheme(..), runClientM)
 
 
 -- | Monad transformer for client calls.
@@ -30,6 +32,10 @@ instance MonadIO m => SwaggerPetstoreClientMonad (SwaggerPetstoreClientT m) wher
     env <- ask
     res <- liftIO $ runClientM clientM env
     liftEither res
+
+
+baseUrl :: BaseUrl
+baseUrl = BaseUrl Http "petstore.swagger.io" 80 "/v2"
 
 runClientT :: ClientEnv -> SwaggerPetstoreClientT m a -> m (Either ServantError a)
 runClientT env =  runExceptT . flip runReaderT env . unClientT
